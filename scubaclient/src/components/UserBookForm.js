@@ -154,7 +154,7 @@ class UserBookForm extends Component {
                 primary={true}
                 onTouchTap={this.handleOpen} />
                 <Dialog
-                  title="THANK YOU FOR CODING WITH US"
+                  title="THANK YOU FOR DIVING WITH US"
                   actions={actions}
                   modal={true}
                   open={this.state.open}
