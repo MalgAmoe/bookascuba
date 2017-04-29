@@ -33,8 +33,8 @@ User.sync().then(function () {
         username: username,
         password: '$2a$10$kgkM8ysm85eNHecJ4bdH8.yGzH0XE7HpfBmsit5JIqD6muFrxLr16',
         token: '123456789',
-        type: 'dc',
-        auth: 1,
+        type: 'super',
+        auth: 2,
       });
     }
   })
