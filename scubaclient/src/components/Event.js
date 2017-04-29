@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, CardMedia, CardTitle, CardHeader, CardText } from 'material-ui/Card'
+import { Card, CardMedia, CardHeader, CardText } from 'material-ui/Card'
 import RaisedButton from 'material-ui/RaisedButton';
 import Moment from 'moment'
 
@@ -33,7 +33,7 @@ export default class Event extends React.Component {
             //   ' at ' + Moment(this.props.event.time).format('hh:mm a')
             // } />}
           >
-            <img src={this.props.event.image} />
+            <img src={this.props.event.image} role='presentation'/>
           </CardMedia>
 
           {this.props.event.details}

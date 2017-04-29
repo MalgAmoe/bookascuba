@@ -1,15 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
-import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import Moment from 'moment';
-
-const eventStyle={
-  padding: 40,
-  fontSize: 20,
-  marginBottom: 240,
-}
 
 const style = {
   display: 'flex',
@@ -34,7 +27,7 @@ export default class UserEvent extends React.Component {
               ' at ' + Moment(this.props.event.time).format('hh:mm a')
             } />}
         >
-          <img src={this.props.event.image} />
+          <img src={this.props.event.image} role='presentation'/>
         </CardMedia>
 
 

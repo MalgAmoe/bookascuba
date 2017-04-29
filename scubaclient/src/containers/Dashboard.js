@@ -4,7 +4,7 @@ import * as Actions from '../actions'
 import Event from '../components/Event'
 import Book from '../components/Book'
 import NewEventForm from '../components/NewEventForm'
-import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card'
+import { Card, CardHeader } from 'material-ui/Card'
 
 
 const containerStyle = {

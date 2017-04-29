@@ -24,6 +24,13 @@ export const createEvent = (title, details, date, time, image) => ({
   success: getEvents
 })
 
+export const getBooks = () => ({
+    type: 'GET_BOOKS',
+    [CALL_API]: {
+      endpoint: '/appointments'
+    }
+  })
+
 export const createBook = (name, email, rent, cert, eventId) => ({
   type: 'CREATE_BOOK',
   [CALL_API]: {
@@ -66,14 +73,6 @@ export const deleteBook = (id) => ({
   },
   success: getBooks
 })
-
-export const getBooks = () => ({
-    type: 'GET_BOOKS',
-    [CALL_API]: {
-      endpoint: '/appointments'
-    }
-  })
-
 
 export const login = (username, password) => ({
   type: 'LOGIN',

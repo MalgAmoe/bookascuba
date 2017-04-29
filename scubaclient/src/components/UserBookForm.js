@@ -31,13 +31,6 @@ const style = {
   marginRight: 15,
 };
 
-const containerStyle = {
-  margin: 'auto',
-  width: 960,
-  padding: 20,
-  display: 'flex'
-}
-
 
 
 class UserBookForm extends Component {
@@ -185,7 +178,7 @@ UserBookForm.propTypes = {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const event = state.events.find((event) => event.id === parseInt(ownProps.params.eventId))
+  const event = state.events.find((event) => event.id === parseInt(ownProps.params.eventId, 10))
 
   return {
     event
