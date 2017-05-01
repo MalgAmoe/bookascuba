@@ -28,7 +28,12 @@ router
   .post('/appointments', apptController.postAppt)
   .delete('/appointments/:id', apptController.deleteAppt)
   .delete('/appointments/deleteAll', apptController.dropDb)
-
-
+  .get('/auth/facebook',
+    passport.authenticate('facebook'))
+  .get('/auth/facebook/callback',
+    passport.authenticate('facebook', {
+      successRedirect: '/events',
+      failureRedirect: '/about'
+    }))
 
 module.exports = router;
