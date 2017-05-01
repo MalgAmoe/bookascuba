@@ -9,7 +9,10 @@ const serve = require('koa-static');
 const passport = require('koa-passport');
 const bcrypt = require('bcrypt')
 const cors = require('koa-cors');
-const jwt = require('koa-jwt');
+const convert = require('koa-convert')
+const session = require('koa-session')
+app.keys = ['secret']
+// app.use(session(app))
 
 const db = require('./config/db.js');
 const router = require('./router.js');
@@ -25,10 +28,10 @@ const bodyParser = require('koa-body');
 app.use(bodyParser())
 
 // Sessions
-var session = require('koa-session')
-app.keys = ['secret']
+// var session = require('koa-session')
 
 app.use(passport.initialize())
+app.use(passport.session())
 
 const FacebookStrategy = require('passport-facebook')
 const BasicStrategy = require('passport-http').BasicStrategy;
@@ -40,8 +43,24 @@ router.get('/auth/facebook',
 router.get('/auth/facebook/callback',
   passport.authenticate('facebook', {
     successRedirect: '/events',
-    failureRedirect: '/sdfd'
+    failureRedirect: '/about'
   }))
+
+passport.serializeUser(function(user, done) {
+  done(null, user.id)
+})
+
+passport.deserializeUser(function *(id, done) {
+  try {
+    const user = yield User.findOne({
+      where: {id: id}
+    })
+    done(null, user)
+  } catch (err) {
+    console.log('deserialize error:', err);
+    done(err)
+  }
+})
 
 passport.use(new FacebookStrategy({
   clientID: facebook.APP_ID,
@@ -49,16 +68,25 @@ passport.use(new FacebookStrategy({
   callbackURL: facebook.CALLBACK_URL
 },
 function(token, refreshToken, profile, cb) {
-  console.log('in the strategy', profile);
-  User.findOrCreate({facebookId: profile.id}, function (err, user){
-    if (err) {
-      console.log('error is:', err);
-    }
-    if (user) {
-      console.log(user);
-    }
-    return cb(err, user)
+  // console.log('in the strategy', profile);
+  User.findOne({
+    where: { facebookId: profile.id }
   })
+    .then(function(user) {
+      if (user) {
+        console.log('Existing user: ', user);
+        return cb(null, user)
+      } else {
+        User.create({
+          username: profile.displayName,
+          facebookId: profile.id,
+          auth: 0
+        }).then(function(user) {
+          console.log('Created user: ', user);
+          return cb(null, user)
+        })
+      }
+    })
 }))
 
 passport.use(new BasicStrategy(
