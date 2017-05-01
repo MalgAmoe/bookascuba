@@ -41,6 +41,7 @@ class UserDashboard extends React.Component {
   render() {
     return <div style={containerStyle}>
       <div style={{margin: 'auto', padding: 20}}>
+        <a href='http://localhost:3001/auth/facebook'>hey lets test it</a>
         {/* <h1 style={{textAlign: 'center'}}>EVENTS</h1> */}
         <div style={styleEvents}>
           {this.renderEvents()}

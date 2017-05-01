@@ -29,6 +29,7 @@ node_modules
 # Custom
 private
 dist
+private.js
 
 
 database.sqlite

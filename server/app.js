@@ -11,10 +11,10 @@ const bcrypt = require('bcrypt')
 const cors = require('koa-cors');
 const jwt = require('koa-jwt');
 
-
 const db = require('./config/db.js');
 const router = require('./router.js');
-var User = require('./models/user.js')
+const User = require('./models/user.js')
+const facebook = require('./private')
 
 app.use(serve('../client'))
 app.use(cors());
@@ -30,12 +30,36 @@ app.keys = ['secret']
 
 app.use(passport.initialize())
 
-
-
+const FacebookStrategy = require('passport-facebook')
 const BasicStrategy = require('passport-http').BasicStrategy;
 const BearerStrategy = require('passport-http-bearer').Strategy;
 
+router.get('/auth/facebook',
+  passport.authenticate('facebook'))
 
+router.get('/auth/facebook/callback',
+  passport.authenticate('facebook', {
+    successRedirect: '/events',
+    failureRedirect: '/sdfd'
+  }))
+
+passport.use(new FacebookStrategy({
+  clientID: facebook.APP_ID,
+  clientSecret: facebook.APP_SECRET,
+  callbackURL: facebook.CALLBACK_URL
+},
+function(token, refreshToken, profile, cb) {
+  console.log('in the strategy', profile);
+  User.findOrCreate({facebookId: profile.id}, function (err, user){
+    if (err) {
+      console.log('error is:', err);
+    }
+    if (user) {
+      console.log(user);
+    }
+    return cb(err, user)
+  })
+}))
 
 passport.use(new BasicStrategy(
   function(username, password, done) {
