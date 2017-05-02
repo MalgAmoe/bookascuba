@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt')
 
 const User = require('../models/user.js')
 const facebook = require('../private')
+const co = require('co')
 
 const FacebookStrategy = require('passport-facebook')
 const BasicStrategy = require('passport-http').BasicStrategy;
@@ -30,11 +31,11 @@ passport.use(new FacebookStrategy({
   callbackURL: facebook.CALLBACK_URL
 },
 function(token, refreshToken, profile, cb) {
-  // console.log('in the strategy', profile);
-  User.findOne({
-    where: { facebookId: profile.id }
-  })
-    .then(function(user) {
+  return co(function* () {
+    try {
+      let user = yield Promise.resolve(User.findOne({
+        where: { facebookId: profile.id }
+      }))
       if (user) {
         console.log('Existing user: ', user);
         return cb(null, user)
@@ -48,7 +49,29 @@ function(token, refreshToken, profile, cb) {
           return cb(null, user)
         })
       }
-    })
+    } catch (err) {
+      throw err
+    }
+  })
+  // console.log('in the strategy', profile);
+  // User.findOne({
+  //   where: { facebookId: profile.id }
+  // })
+  //   .then(function(user) {
+  //     if (user) {
+  //       console.log('Existing user: ', user);
+  //       return cb(null, user)
+  //     } else {
+  //       User.create({
+  //         username: profile.displayName,
+  //         facebookId: profile.id,
+  //         auth: 0
+  //       }).then(function(user) {
+  //         console.log('Created user: ', user);
+  //         return cb(null, user)
+  //       })
+  //     }
+  //   })
 }))
 
 passport.use(new BasicStrategy(
