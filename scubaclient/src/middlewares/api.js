@@ -50,7 +50,9 @@ export default store => next => action => {
   if (username && password) {
     authentication = 'Basic ' + btoa(`${username}:${password}`)
   } else if (store.getState().user.token) {
-    authentication = 'Bearer ' + store.getState().user.token
+    authentication = 'Bearer ' + store.getState().user.token;
+    authentication = 'Facebook ' + store.getState().user.token;
+
   }
 
   const actionWith = data => {

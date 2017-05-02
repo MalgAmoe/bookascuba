@@ -43,7 +43,7 @@ app.use(function *(next){
 app.use(router.routes())
 
 app.use(function* (next) {
-   if (this.status === 404) this.body = 'ooopsss';
+   if (this.status === 404) this.body = 'Message from the server: Not found. - app.js 46';
  });
 
 app.listen(port, hostname, () => {

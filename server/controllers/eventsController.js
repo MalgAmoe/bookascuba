@@ -2,7 +2,8 @@ var eventsController = {}
 
 var Event = require('../models/Event.js')
 
-eventsController.getEvents = function * (next) {
+eventsController.getEvents = function * (req, res, next) {
+  console.log('--------------------this: ', this, '-----------------------', this.req, this.res);
   this.body = yield Event.findAll()
 }
 

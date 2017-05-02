@@ -16,6 +16,9 @@ var User = sequelize.define('user', {
   token: {
     type: Sequelize.STRING,
   },
+  email: {
+    type: Sequelize.STRING,
+  },
   type: {
     type: Sequelize.STRING,
   },
@@ -37,6 +40,7 @@ User.sync({force:true}).then(function () {
         password: '$2a$10$kgkM8ysm85eNHecJ4bdH8.yGzH0XE7HpfBmsit5JIqD6muFrxLr16',
         facebookId: '0',
         token: '123456789',
+        email: '',
         type: 'super',
         auth: 2,
       });

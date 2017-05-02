@@ -30,7 +30,6 @@ passport.use(new FacebookStrategy({
   callbackURL: facebook.CALLBACK_URL
 },
 function(token, refreshToken, profile, cb) {
-  // console.log('in the strategy', profile);
   User.findOne({
     where: { facebookId: profile.id }
   })
@@ -42,6 +41,8 @@ function(token, refreshToken, profile, cb) {
         User.create({
           username: profile.displayName,
           facebookId: profile.id,
+          token: token,
+          email: email,
           auth: 0
         }).then(function(user) {
           console.log('Created user: ', user);

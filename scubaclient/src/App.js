@@ -18,6 +18,7 @@ class Login extends Component {
 
   render() {
     return (
+
       <FlatButton {...this.props}
         label="Login"
         containerElement={<Link to="/login" />}
@@ -64,6 +65,7 @@ class App extends Component {
   render() {
     return (
       <div>
+        <div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false"></div>
         <AppBar
           title="Book a Scuba"
 

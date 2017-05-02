@@ -41,6 +41,7 @@ class UserDashboard extends React.Component {
   render() {
     return <div style={containerStyle}>
       <div style={{margin: 'auto', padding: 20}}>
+      <div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false"></div>
         <a href='http://localhost:3001/auth/facebook'>hey lets test it</a>
         {/* <h1 style={{textAlign: 'center'}}>EVENTS</h1> */}
         <div style={styleEvents}>
