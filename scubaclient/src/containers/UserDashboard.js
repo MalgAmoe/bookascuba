@@ -24,15 +24,19 @@ class UserDashboard extends React.Component {
 //
 // RENDERING
 //
-  arrangeEvent(events) {
+  arrangeEvent(events, type) {
     return events.sort((a, b) => {
-      return new Date(b.date) - new Date(a.date)
+      if (type === 'time') {
+        return new Date(b.date) > new Date(a.date)
+      } else if (type === 'title') {
+        return b.title < a.title
+      }
     })
   }
 
   renderEvents () {
     console.log('UserDashboard: ', this.props.events);
-      return this.arrangeEvent(this.props.events).map(event =>
+      return this.arrangeEvent(this.props.events, 'time').map(event =>
         <UserEvent
           className="event"
           style={{ width: 300, marginRight:20, marginBottom: 20 }}
