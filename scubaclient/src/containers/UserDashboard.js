@@ -24,10 +24,15 @@ class UserDashboard extends React.Component {
 //
 // RENDERING
 //
+  arrangeEvent(events) {
+    return events.sort((a, b) => {
+      return new Date(b.date) - new Date(a.date)
+    })
+  }
 
   renderEvents () {
     console.log('UserDashboard: ', this.props.events);
-      return this.props.events.map(event =>
+      return this.arrangeEvent(this.props.events).map(event =>
         <UserEvent
           className="event"
           style={{ width: 300, marginRight:20, marginBottom: 20 }}
