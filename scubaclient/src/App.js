@@ -18,10 +18,17 @@ class Login extends Component {
 
   render() {
     return (
-      <FlatButton {...this.props}
-        label="Login"
-        containerElement={<Link to="/login" />}
-      />
+      <div className='Logins'>
+        <FlatButton {...this.props}
+          label="Diving Center"
+          containerElement={<Link to="/login" />}
+          />
+        <a href='http://localhost:3001/auth/facebook'>
+          <FlatButton {...this.props}
+            label="Login"
+            />
+        </a>
+      </div>
     );
   }
 }
