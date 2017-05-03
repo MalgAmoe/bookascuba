@@ -37,15 +37,17 @@ function(token, refreshToken, profile, cb) {
         where: { facebookId: profile.id }
       }))
       if (user) {
-        console.log('Existing user: ', user);
+        // console.log('Existing user: ', user);
         return cb(null, user)
       } else {
         User.create({
           username: profile.displayName,
           facebookId: profile.id,
+          token: token,
+          type: 'diver',
           auth: 0
         }).then(function(user) {
-          console.log('Created user: ', user);
+          // console.log('Created user: ', user);
           return cb(null, user)
         })
       }

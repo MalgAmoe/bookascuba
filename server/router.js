@@ -36,9 +36,16 @@ router
       failureRedirect: '/about'
     }),
     function* () {
-      var req = this.req.user
-      // console.log('USER');
-      console.log('requwweuweuweuweuweuweuw',req.dataValues);
+      var res = {
+        id: this.req.user.id,
+        username: this.req.user.username,
+        type: this.req.user.type
+      }
+      this.header.data = res
+      console.log(this.header);
+      // this.body = res
+      this.redirect('http://localhost:3000/events')
+
       this.status = 200;
     })
 
